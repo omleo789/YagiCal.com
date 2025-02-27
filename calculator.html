@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yagi-Uda Antenna Calculator</title>
+  <style>
+    :root {
+      --apple-bg: #000000;
+      --apple-card-bg: #1c1c1e;
+      --apple-text: #f5f5f7;
+      --apple-secondary-text: #86868b;
+      --apple-accent: #0071e3;
+      --apple-accent-hover: #0077ed;
+      --apple-border: #3d3d3f;
+      --apple-input-bg: #2c2c2e;
+      --apple-success: #34c759;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+    
+    body {
+      background-color: var(--apple-bg);
+      color: var(--apple-text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--apple-border);
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+    
+    nav a {
+      color: var(--apple-secondary-text);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    
+    nav a:hover {
+      color: var(--apple-text);
+    }
+    
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 1rem;
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+    }
+    
+    .tagline {
+      font-size: 1.2rem;
+      color: var(--apple-secondary-text);
+      text-align: center;
+      max-width: 600px;
+      margin-bottom: 3rem;
+    }
+    
+    .calculator-container {
+      display: flex;
+      gap: 2rem;
+      width: 100%;
+      max-width: 1100px;
+      flex-wrap: wrap;
+    }
+    
+    .input-section, .result-section, .diagram-section {
+      background-color: var(--apple-card-bg);
+      border-radius: 18px;
+      padding: 2rem;
+      flex: 1;
+      min-width: 300px;
+    }
+    
+    .input-section h2, .result-section h2, .diagram-section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.5px;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--apple-secondary-text);
+      font-size: 0.9rem;
+    }
+    
+    input, select {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 10px;
+      border: none;
+      background-color: var(--apple-input-bg);
+      color: var(--apple-text);
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.2s;
+    }
+    
+    input:focus, select:focus {
+      box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.3);
+    }
+    
+    .button {
+      background-color: var(--apple-accent);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      text-align: center;
+      transition: background-color 0.2s;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 1rem;
+    }
+    
+    .button:hover {
+      background-color: var(--apple-accent-hover);
+    }
+    
+    .back-button {
+      background-color: transparent;
+      border: 1px solid var(--apple-border);
+      margin-top: 1rem;
+    }
+    
+    .back-button:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .result-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    
+    .result-table th, .result-table td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--apple-border);
+    }
+    
+    .result-table th {
+      color: var(--apple-secondary-text);
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+    
+    .diagram-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .diagram {
+      width: 100%;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1rem;
+      overflow: hidden;
+    }
+    
+    .diagram img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    
+    .no-results {
+      text-align: center;
+      color: var(--apple-secondary-text);
+      margin-top: 2rem;
+    }
+    
+    .info-card {
+      background-color: rgba(0, 113, 227, 0.1);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      border-left: 3px solid var(--apple-accent);
+    }
+    
+    .info-card p {
+      color: var(--apple-secondary-text);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    
+    footer {
+      padding: 1.5rem;
+      text-align: center;
+      color: var(--apple-secondary-text);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--apple-border);
+    }
+    
+    @media (max-width: 768px) {
+      .calculator-container {
+        flex-direction: column;
+      }
+      
+      .input-section, .result-section, .diagram-section {
+        width: 100%;
+      }
+      
+      header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">YagiCal</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <main>
+    <h1>Yagi-Uda Antenna Calculator</h1>
+    <p class="tagline">Design optimized Yagi-Uda antennas with precise element dimensions and spacing</p>
+    
+    <div class="calculator-container">
+      <div class="input-section">
+        <h2>Input Parameters</h2>
+        
+        <div class="info-card">
+          <p>Enter your frequency and desired specifications to calculate optimal Yagi-Uda antenna dimensions.</p>
+        </div>
+        
+        <div class="form-group">
+          <label for="frequency">Frequency (MHz)</label>
+          <input type="number" id="frequency" placeholder="e.g., 144.0" min="1" max="10000" step="0.1">
+        </div>
+        
+        <div class="form-group">
+          <label for="elements">Number of Elements</label>
+          <select id="elements">
+            <option value="2">2 (1 director)</option>
+            <option value="3" selected>3 (2 directors)</option>
+            <option value="4">4 (3 directors)</option>
+            <option value="5">5 (4 directors)</option>
+            <option value="6">6 (5 directors)</option>
+            <option value="7">7 (6 directors)</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="boom">Boom Diameter (mm)</label>
+          <input type="number" id="boom" placeholder="e.g., 25" min="5" max="100" step="1" value="25">
+        </div>
+        
+        <div class="form-group">
+          <label for="element-diameter">Element Diameter (mm)</label>
+          <input type="number" id="element-diameter" placeholder="e.g., 10" min="1" max="50" step="0.5" value="10">
+        </div>
+        
+        <button class="button" onclick="calculateYagi()">Calculate Antenna</button>
+        <button class="button back-button" onclick="window.location.href='index.html'">Back to Main Page</button>
+      </div>
+      
+      <div class="result-section">
+        <h2>Results</h2>
+        <div id="results-content">
+          <div class="no-results">
+            Enter parameters and click Calculate
+          </div>
+        </div>
+      </div>
+      
+      <div class="diagram-section">
+        <h2>Antenna Diagram</h2>
+        <div class="diagram">
+          <img src="ver.png" alt="Yagi-Uda Antenna Diagram" id="diagram-image">
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <p></p>
+  </footer>
+  
+  <script>
+    function calculateYagi() {
+      const frequency = parseFloat(document.getElementById('frequency').value);
+      const elements = parseInt(document.getElementById('elements').value);
+      const boomDiameter = parseFloat(document.getElementById('boom').value);
+      const elementDiameter = parseFloat(document.getElementById('element-diameter').value);
+      
+      if (!frequency) {
+        alert('Please enter a valid frequency');
+        return;
+      }
+      
+      // Basic calculations for Yagi-Uda antenna
+      const wavelength = 300 / frequency; // wavelength in meters
+      
+      // Element lengths (in meters)
+      const reflectorLength = wavelength * 0.495;
+      const drivenLength = wavelength * 0.473;
+      
+      // Calculate director lengths (they get progressively shorter)
+      const directors = [];
+      let directorLength = wavelength * 0.440;
+      
+      for (let i = 0; i < elements - 2; i++) {
+        directors.push(directorLength);
+        directorLength *= 0.97; // Each subsequent director is slightly shorter
+      }
+      
+      // Spacing calculations (in meters)
+      const reflectorSpacing = 0;
+      const drivenSpacing = wavelength * 0.125;
+      
+      const directorSpacings = [];
+      let spacing = drivenSpacing + wavelength * 0.125;
+      
+      for (let i = 0; i < elements - 2; i++) {
+        directorSpacings.push(spacing);
+        spacing += wavelength * 0.125; // Standard spacing
+      }
+      
+      // Calculate gain (approximate)
+      const gain = 7.8 + 2.8 * Math.log2(elements - 1);
+      
+      // Update results
+      const resultsDiv = document.getElementById('results-content');
+      
+      let html = `
+        <div class="info-card">
+          <p>For ${frequency} MHz (λ = ${wavelength.toFixed(2)} m)</p>
+        </div>
+        
+        <h3>Element Lengths</h3>
+        <table class="result-table">
+          <tr>
+            <th>Element</th>
+            <th>Length (m)</th>
+            <th>Length (mm)</th>
+          </tr>
+          <tr>
+            <td>Reflector</td>
+            <td>${reflectorLength.toFixed(3)}</td>
+            <td>${(reflectorLength * 1000).toFixed(1)}</td>
+          </tr>
+          <tr>
+            <td>Driven</td>
+            <td>${drivenLength.toFixed(3)}</td>
+            <td>${(drivenLength * 1000).toFixed(1)}</td>
+          </tr>
+      `;
+      
+      directors.forEach((length, index) => {
+        html += `
+          <tr>
+            <td>Director ${index + 1}</td>
+            <td>${length.toFixed(3)}</td>
+            <td>${(length * 1000).toFixed(1)}</td>
+          </tr>
+        `;
+      });
+      
+      html += `
+        </table>
+        
+        <h3>Element Spacing from Reflector</h3>
+        <table class="result-table">
+          <tr>
+            <th>Element</th>
+            <th>Distance (m)</th>
+            <th>Distance (mm)</th>
+          </tr>
+          <tr>
+            <td>Reflector</td>
+            <td>${reflectorSpacing.toFixed(3)}</td>
+            <td>${(reflectorSpacing * 1000).toFixed(1)}</td>
+          </tr>
+          <tr>
+            <td>Driven</td>
+            <td>${drivenSpacing.toFixed(3)}</td>
+            <td>${(drivenSpacing * 1000).toFixed(1)}</td>
+          </tr>
+      `;
+      
+      directorSpacings.forEach((space, index) => {
+        html += `
+          <tr>
+            <td>Director ${index + 1}</td>
+            <td>${space.toFixed(3)}</td>
+            <td>${(space * 1000).toFixed(1)}</td>
+          </tr>
+        `;
+      });
+      
+      html += `
+        </table>
+        
+        <h3>Performance</h3>
+        <table class="result-table">
+          <tr>
+            <th>Parameter</th>
+            <th>Value</th>
+          </tr>
+          <tr>
+            <td>Estimated Gain</td>
+            <td>${gain.toFixed(1)} dBi</td>
+          </tr>
+          <tr>
+            <td>Beam Width</td>
+            <td>${(60 / Math.sqrt(elements)).toFixed(1)}°</td>
+          </tr>
+          <tr>
+            <td>Front-to-Back Ratio</td>
+            <td>${(15 + elements * 2).toFixed(1)} dB</td>
+          </tr>
+        </table>
+      `;
+      
+      resultsDiv.innerHTML = html;
+    }
+  </script>
+</body>
+</html>

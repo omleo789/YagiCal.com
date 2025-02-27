@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antenna Theory | AntennaWorks</title>
+  <style>
+    :root {
+      --apple-bg: #000000;
+      --apple-card-bg: #1c1c1e;
+      --apple-text: #f5f5f7;
+      --apple-secondary-text: #86868b;
+      --apple-accent: #0071e3;
+      --apple-accent-hover: #0077ed;
+      --apple-border: #3d3d3f;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+    
+    body {
+      background-color: var(--apple-bg);
+      color: var(--apple-text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--apple-border);
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+    
+    nav a {
+      color: var(--apple-secondary-text);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    
+    nav a:hover {
+      color: var(--apple-text);
+    }
+    
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+    }
+    
+    .tagline {
+      font-size: 1.3rem;
+      color: var(--apple-secondary-text);
+      text-align: center;
+      max-width: 700px;
+      margin-bottom: 3rem;
+    }
+    
+    .theory-content {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+      width: 100%;
+    }
+    
+    .topic-section {
+      background-color: var(--apple-card-bg);
+      border-radius: 18px;
+      padding: 2.5rem;
+      width: 100%;
+    }
+    
+    .topic-section h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.5px;
+    }
+    
+    .topic-section p {
+      color: var(--apple-text);
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    
+    .topic-section ul, .topic-section ol {
+      margin-left: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .topic-section li {
+      color: var(--apple-text);
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+    }
+    
+    .topic-image {
+      width: 100%;
+      margin: 1.5rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      background-color: var(--apple-bg);
+      height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .topic-image img {
+      max-width: 100%;
+      height: auto;
+    }
+    
+    .topic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .topic-card {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: transform 0.3s, background-color 0.3s;
+      cursor: pointer;
+    }
+    
+    .topic-card:hover {
+      transform: translateY(-5px);
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .topic-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+    
+    .topic-card p {
+      font-size: 1rem;
+      color: var(--apple-secondary-text);
+      margin-bottom: 0;
+    }
+    
+    .button {
+      background-color: var(--apple-accent);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      text-align: center;
+      transition: background-color 0.2s;
+      display: inline-block;
+      margin-top: 1rem;
+    }
+    
+    .button:hover {
+      background-color: var(--apple-accent-hover);
+    }
+    
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 3rem;
+    }
+    
+    footer {
+      padding: 1.5rem;
+      text-align: center;
+      color: var(--apple-secondary-text);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--apple-border);
+      margin-top: 3rem;
+    }
+    
+    .formula {
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 1rem;
+      border-radius: 8px;
+      margin: 1rem 0;
+      font-family: monospace;
+      text-align: center;
+      font-size: 1.2rem;
+    }
+    
+    .callout {
+      background-color: rgba(0, 113, 227, 0.2);
+      border-left: 4px solid var(--apple-accent);
+      padding: 1.5rem;
+      border-radius: 0 8px 8px 0;
+      margin: 1.5rem 0;
+    }
+    
+    .callout p {
+      margin-bottom: 0;
+    }
+    
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      
+      .tagline {
+        font-size: 1.1rem;
+      }
+      
+      .topic-section {
+        padding: 1.5rem;
+      }
+      
+      .topic-section h2 {
+        font-size: 1.75rem;
+      }
+      
+      .topic-section p {
+        font-size: 1rem;
+      }
+      
+      header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+      
+      .navigation-buttons {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .navigation-buttons .button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">YagiCal</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="calculator.html">Calculator</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <main>
+    <h1>Antenna Theory</h1>
+    <p class="tagline">Understanding the fundamentals and complexities of antenna designs, electromagnetic principles, and radio frequency communications</p>
+    
+    <div class="theory-content">
+      <!-- Section 1: Antenna Basics -->
+      <section class="topic-section" id="antenna-basics">
+        <h2>Antenna Basics</h2>
+        <p>An antenna is a specialized transducer that converts radio frequency (RF) electrical currents into electromagnetic waves and vice versa. Antennas are essential components in all equipment that uses radio waves for communication, including broadcasting, wireless communications, and radar systems.</p>
+        
+        <div class="topic-image">
+          <!-- Placeholder for an image of basic antenna types -->
+          <img src="Different-Types-of-Wireless-Antennas.webp" alt="Basic Antenna Types">
+        </div>
+        
+        <p>Antennas operate based on several key principles:</p>
+        <ul>
+          <li><strong>Reciprocity</strong>: An antenna's transmission and reception properties are identical.</li>
+          <li><strong>Resonance</strong>: Antennas operate most efficiently when their dimensions match the wavelength of the signal.</li>
+          <li><strong>Directivity</strong>: The ability of an antenna to focus energy in a particular direction.</li>
+          <li><strong>Gain</strong>: A measure of the antenna's ability to direct radio waves in a specific direction.</li>
+          <li><strong>Impedance</strong>: The ratio of voltage to current at the antenna's terminals.</li>
+        </ul>
+        
+        <div class="callout">
+          <p>The wavelength (λ) of a radio wave is related to its frequency (f) by the formula: λ = c/f, where c is the speed of light (approximately 3×10^8 m/s).</p>
+        </div>
+        
+        <div class="topic-grid">
+          <div class="topic-card">
+            <h3>Dipole Antennas</h3>
+            <p>The simplest and most widely used antenna type consisting of two conductive elements.</p>
+          </div>
+          <div class="topic-card">
+            <h3>Monopole Antennas</h3>
+            <p>A variant of the dipole where one element is replaced by a ground plane.</p>
+          </div>
+          <div class="topic-card">
+            <h3>Loop Antennas</h3>
+            <p>Circular or rectangular wire loops used for direction finding and AM radio reception.</p>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Section 2: Yagi-Uda Antennas -->
+      <section class="topic-section" id="yagi-uda">
+        <h2>Yagi-Uda Antennas</h2>
+        <p>The Yagi-Uda antenna, commonly known simply as a Yagi antenna, is a directional antenna consisting of multiple parallel elements in a line, usually half-wave dipoles made of metal rods. Invented in 1926 by Shintaro Uda and Hidetsugu Yagi at Tohoku Imperial University in Japan, it has become one of the most widely used directional antennas due to its high gain and relatively simple construction.</p>
+        
+        <div class="topic-image">
+          <!-- Placeholder for an image of a Yagi-Uda antenna -->
+          <img src="Screenshot.png" alt="Yagi-Uda Antenna Structure">
+        </div>
+        
+        <p>A typical Yagi-Uda antenna consists of three types of elements:</p>
+        <ul>
+          <li><strong>Driven Element</strong>: The only element connected to the transmitter or receiver, typically a half-wave dipole.</li>
+          <li><strong>Reflector</strong>: A slightly longer element placed behind the driven element that reflects radio waves in the forward direction.</li>
+          <li><strong>Directors</strong>: One or more shorter elements placed in front of the driven element that focus the radio waves in the forward direction.</li>
+        </ul>
+        
+        <p>The operation of a Yagi-Uda antenna depends on the interaction between these elements. The reflector and directors are not directly connected to the feed line but interact with the electromagnetic field produced by the driven element, reshaping the radiation pattern.</p>
+        
+        <div class="formula">
+          Director Length ≈ 0.45λ<br>
+          Driven Element Length ≈ 0.5λ<br>
+          Reflector Length ≈ 0.55λ
+        </div>
+        
+        <p>Key characteristics of Yagi-Uda antennas include:</p>
+        <ul>
+          <li><strong>High Directivity</strong>: They focus energy in one direction, increasing gain.</li>
+          <li><strong>Moderate Bandwidth</strong>: Typically 2-20% of the center frequency.</li>
+          <li><strong>Scalable Design</strong>: Can be designed for any frequency by scaling the dimensions.</li>
+          <li><strong>Additive Gain</strong>: Additional directors increase the gain (typically up to about 20).</li>
+        </ul>
+        
+        <div class="callout">
+          <p>The gain of a Yagi-Uda antenna increases with the number of elements but follows a law of diminishing returns. Each additional director adds less gain than the previous one.</p>
+        </div>
+        
+        <a href="calculator.html" class="button">Use Yagi-Uda Calculator</a>
+      </section>
+      
+      <!-- Section 3: Antenna Parameters -->
+      <section class="topic-section" id="antenna-parameters">
+        <h2>Antenna Parameters</h2>
+        <p>Understanding and measuring antenna performance requires knowledge of several key parameters that describe how effectively an antenna transmits and receives radio waves.</p>
+        
+        <div class="topic-grid">
+          <div class="topic-card">
+            <h3>Radiation Pattern</h3>
+            <p>A graphical representation of the radiation properties of an antenna as a function of space coordinates.</p>
+          </div>
+          <div class="topic-card">
+            <h3>Directivity</h3>
+            <p>The ratio of the radiation intensity in a given direction to the radiation intensity averaged over all directions.</p>
+          </div>
+          <div class="topic-card">
+            <h3>Gain</h3>
+            <p>The ratio of the power produced by the antenna in a specific direction to the power produced by an isotropic antenna.</p>
+          </div>
+          <div class="topic-card">
+            <h3>Beamwidth</h3>
+            <p>The angle between the half-power points of the main lobe of a radiation pattern.</p>
+          </div>
+          <div class="topic-card">
+            <h3>Input Impedance</h3>
+            <p>The impedance presented by an antenna at its terminals, consisting of a real and imaginary part.</p>
+          </div>
+          <div class="topic-card">
+            <h3>VSWR</h3>
+            <p>Voltage Standing Wave Ratio - a measure of how efficiently RF power is transmitted from the source to the antenna.</p>
+          </div>
+        </div>
+        
+        <p>The efficiency of an antenna is characterized by several factors:</p>
+        <ul>
+          <li><strong>Radiation Efficiency</strong>: The ratio of power radiated to the power input.</li>
+          <li><strong>Aperture Efficiency</strong>: For aperture antennas, the ratio of effective area to physical area.</li>
+          <li><strong>Polarization Efficiency</strong>: The match between transmitted and received wave polarizations.</li>
+        </ul>
+        
+        <div class="formula">
+          Gain (dBi) = 10 × log₁₀(Directivity × Efficiency)
+        </div>
+        
+        <div class="callout">
+          <p>Front-to-Back Ratio (F/B) is particularly important for directional antennas like the Yagi-Uda. It represents the ratio of power radiated in the desired direction to the power radiated in the opposite direction.</p>
+        </div>
+      </section>
+      
+      <!-- Section 4: Advanced Antenna Types -->
+      <section class="topic-section" id="advanced-antennas">
+        <h2>Advanced Antenna Types</h2>
+        <p>Beyond basic dipoles and Yagi-Uda designs, numerous specialized antenna types serve various applications from satellite communications to radar systems.</p>
+        
+        <div class="topic-grid">
+          <div class="topic-card">
+            <h3>Parabolic Reflector</h3>
+            <p>High-gain antennas using a parabolic reflector to direct radio waves, commonly used in satellite communications and radio telescopes.</p>
+          </div>
+          <div class="topic-card">
+            <h3>Phased Array</h3>
+            <p>Multiple antennas in which the relative phases of the signals feeding the antennas are varied to change the effective radiation pattern.</p>
+          </div>
+          <div class="topic-card">
+            <h3>Log-Periodic</h3>
+            <p>Frequency-independent antennas with multiple elements of increasing length, providing consistent performance across a wide bandwidth.</p>
+          </div>
+          <div class="topic-card">
+            <h3>Helical</h3>
+            <p>Wire wound in the form of a helix, producing circularly polarized radio waves ideal for satellite communications.</p>
+          </div>
+          <div class="topic-card">
+            <h3>Patch/Microstrip</h3>
+            <p>Low-profile antennas consisting of a metal patch over a ground plane, widely used in mobile devices and aircraft.</p>
+          </div>
+          <div class="topic-card">
+            <h3>Horn</h3>
+            <p>Antennas that use a flared waveguide to direct radio waves, commonly used in microwave applications and as feed antennas for larger reflector antennas.</p>
+          </div>
+        </div>
+        
+        <p>Each antenna type has specific advantages and limitations that make it suitable for particular applications:</p>
+        <ul>
+          <li><strong>Satellite Communications</strong>: High-gain directional antennas like parabolic dishes are essential.</li>
+          <li><strong>Mobile Communications</strong>: Compact designs like patch antennas are preferred.</li>
+          <li><strong>Broadcasting</strong>: High-power, omnidirectional antennas are typically used.</li>
+          <li><strong>Radar</strong>: Phased arrays and parabolic reflectors provide the necessary directivity and gain.</li>
+        </ul>
+      </section>
+      
+      <div class="navigation-buttons">
+        <a href="index.html" class="button">Back to Home</a>
+        <a href="calculator.html" class="button">Yagi-Uda Calculator</a>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | AntennaWorks</title>
+  <style>
+    :root {
+      --apple-bg: #000000;
+      --apple-card-bg: #1c1c1e;
+      --apple-text: #f5f5f7;
+      --apple-secondary-text: #86868b;
+      --apple-accent: #0071e3;
+      --apple-accent-hover: #0077ed;
+      --apple-border: #3d3d3f;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+    
+    body {
+      background-color: var(--apple-bg);
+      color: var(--apple-text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--apple-border);
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+    }
+    
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+    
+    nav a {
+      color: var(--apple-secondary-text);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    
+    nav a:hover {
+      color: var(--apple-text);
+    }
+    
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 5rem 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+    }
+    
+    .content {
+      background-color: var(--apple-card-bg);
+      border-radius: 18px;
+      padding: 2.5rem;
+      width: 100%;
+    }
+    
+    .content p {
+      color: var(--apple-text);
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    
+    .content p:last-child {
+      margin-bottom: 0;
+    }
+    
+    .button {
+      background-color: var(--apple-accent);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      text-align: center;
+      transition: background-color 0.2s;
+      display: inline-block;
+      margin-top: 2rem;
+    }
+    
+    .button:hover {
+      background-color: var(--apple-accent-hover);
+    }
+    
+    footer {
+      padding: 1.5rem;
+      text-align: center;
+      color: var(--apple-secondary-text);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--apple-border);
+      margin-top: 3rem;
+    }
+    
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      
+      .content {
+        padding: 1.5rem;
+      }
+      
+      .content p {
+        font-size: 1rem;
+      }
+      
+      header {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">YagiCal</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="theory.html">Theory</a></li>
+        <li><a href="calculator.html">Calculator</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <main>
+    <h1>About YagiCal</h1>
+    
+    <div class="content">
+      <p>YagiCal is a specialized platform dedicated to providing practical tools and educational resources for antenna design and analysis. Our mission is to simplify complex antenna theory into accessible knowledge for both professionals and enthusiasts.</p>
+      
+      <p>This site offers comprehensive resources on antenna fundamentals, with a special focus on Yagi-Uda antenna designs. My precision calculator helps engineers and hobbyists alike design optimal antennas for their specific frequency needs without the complexity of traditional engineering approaches.</p>
+      
+      <p>Whether you're a professional RF engineer, an amateur radio operator, or a student learning about electromagnetic theory, AntennaWorks provides the tools you need to turn theory into practice.</p>
+    </div>
+    
+    <a href="index.html" class="button">Back to Home</a>
+  </main>
+  
+  <footer>
+    <p></p>
+  </footer>
+</body>
+</html>
